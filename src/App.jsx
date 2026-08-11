@@ -11,7 +11,7 @@ function App() {
 
   return (
     <Catalogo/>
-  )
+   )
 }
 
 export default App
