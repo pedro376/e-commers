@@ -1,0 +1,92 @@
+/* ===== NAV ===== */
+header{
+  position:sticky; top:0; z-index:100;
+  background:var(--cream); border-bottom:1px solid var(--line);
+}
+.navbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 32px; max-width:1240px; margin:0 auto;
+}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink);}
+.brand img{height:38px; width:38px; object-fit:contain;}
+.brand span{font-family:'Anton',sans-serif; font-size:20px; letter-spacing:0.03em;}
+nav.links{display:flex; gap:34px;}
+nav.links a{
+  color:var(--ink); text-decoration:none; font-size:13px; font-weight:600;
+  letter-spacing:0.06em; text-transform:uppercase; position:relative; padding-bottom:4px;
+}
+nav.links a::after{
+  content:''; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--gold);
+  transition:width .25s ease;
+}
+nav.links a:hover::after, nav.links a.active::after{width:100%;}
+.nav-actions{display:flex; align-items:center; gap:18px;}
+.icon-btn{
+  width:20px; height:20px; display:flex; align-items:center; justify-content:center; cursor:pointer;
+  background:none; border:none; color:var(--ink); padding:0;
+}
+
+/*======================== boton de comprar*/
+
+.cta-btn{
+
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    padding: 11px 22px;
+    font-family:'Inter',sans-serif;
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform:uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+
+.cta-btn.gold{background:var(--gold); color:var(--ink);}
+.cta-btn.outline{background:transparent; border:1.5px solid var(--ink); color:var(--ink);}
+
+
+
+/* ===== MARQUEE ===== */
+.marquee{
+  background:var(--ink); color:var(--cream); overflow:hidden; white-space:nowrap;
+  padding:9px 0; border-bottom:3px solid var(--gold);
+}
+.marquee-track{display:inline-block; animation:scroll 22s linear infinite;}
+.marquee span{
+  display:inline-flex; align-items:center; gap:16px;
+  font-family:'Anton',sans-serif; font-size:13px; letter-spacing:0.12em; padding:0 22px;
+}
+.marquee .dot{color:var(--gold); font-size:10px;}
+@keyframes scroll{0%{transform:translateX(0);} 100%{transform:translateX(-50%);}}
+
+/* ===== FOOTER ===== */
+footer{background:var(--ink); color:rgba(241,235,221,0.65); padding:70px 0 26px;}
+.foot-top{
+  display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:40px; padding-bottom:50px;
+  border-bottom:1px solid rgba(241,235,221,0.14);
+}
+.foot-brand{display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+.foot-brand img{height:34px; width:34px; filter:invert(1);}
+.foot-brand span{font-family:'Anton',sans-serif; color:var(--cream); font-size:18px;}
+.foot-top p{font-size:13.5px; max-width:280px; line-height:1.6;}
+.foot-col h5{
+  color:var(--cream); font-size:12px; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:18px;
+}
+.foot-col a{display:block; color:rgba(241,235,221,0.65); text-decoration:none; font-size:13.5px; margin-bottom:11px;}
+.foot-col a:hover{color:var(--gold-soft);}
+.foot-bottom{
+  display:flex; justify-content:space-between; align-items:center; padding-top:26px; font-size:12px;
+}
+.foot-social{display:flex; gap:14px;}
+.foot-social a{
+  width:32px; height:32px; border:1px solid rgba(241,235,221,0.25); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; color:var(--cream); text-decoration:none; font-size:13px;
+}
+
+@media (max-width: 980px){
+  nav.links{display:none;}
+  .foot-top{grid-template-columns:1fr 1fr;}
+}
