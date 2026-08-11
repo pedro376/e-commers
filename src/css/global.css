@@ -1,0 +1,37 @@
+/* este css es para guardar los estulos globales o que cualquier subpagina pueda usar*/
+
+
+:root{
+  --cream:#F1EBDD;
+  --cream-2:#E8E0CC;
+  --ink:#171410;
+  --ink-soft:#2A251E;
+  --gold:#C89B3C;
+  --gold-soft:#DCC17D;
+  --brick:#8A2E22;
+  --line: rgba(23,20,16,0.14);    
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html{scroll-behavior: smooth;}
+body{
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family:'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+

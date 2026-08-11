@@ -7,7 +7,6 @@ import './App.css'
 import Catalogo from './Componentes/Catalogo/Catalogo'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <Catalogo/>
