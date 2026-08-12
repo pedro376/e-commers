@@ -1,18 +1,19 @@
 import "./ProductCard.css";
 
-function ProductCard()
+
+function ProductCard({producto})
 {
     return(
         <article className="productCard">
 
-            <img className="productImg" src="public\playera.jpeg" alt="Producto"></img> {/*Imagen que traeremos desde Shopify*/}
+            <img className="productImg" src={producto.img} alt="Producto"></img> {/*Imagen que traeremos desde Shopify*/}
 
             <div className="info">
 
                 <div className="row">
 
-                <h3>Product Name</h3>
-                <span>$000</span>
+                <h3>{producto.nombre}</h3>
+                <span>${producto.precio}</span>
 
             </div> {/*Este div contendrá name y precio en la misma linea*/}
             
