@@ -13,9 +13,12 @@ function App() {
 
   return (
     <>
-    <NavBar/>
-    <Catalogo/>
-    <Footer/>
+      <div className='grain'/>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Inicio/>} />
+      </Routes>
+      <Footer/>
     </>
    )
 }
