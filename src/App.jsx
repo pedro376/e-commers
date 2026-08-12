@@ -1,25 +1,23 @@
-import { Routes, Route } from 'react-router-dom';
-
-import Inicio from './pages/Inicio'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer';
-
-
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+import heroImg from './assets/hero.png'
+import './App.css'
 import './css/global.css'
-import './css/inicio.css'
+
+import NavBar from './components/Navbar'
+import Catalogo from './Componentes/Catalogo/Catalogo'
+import Footer from './components/Footer'
 
 function App() {
 
   return (
     <>
-      <div className='grain'/>
-      <Navbar />
-      <Routes>
-        <Route path='/' element={<Inicio/>} />
-      </Routes>
-      <Footer/>
+    <NavBar/>
+    <Catalogo/>
+    <Footer/>
     </>
-  )
+   )
 }
 
 export default App

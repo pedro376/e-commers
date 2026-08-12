@@ -1,0 +1,29 @@
+.SearchBar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 45px;
+    align-items: stretch;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.SearchBar input{
+    width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid rgb(173, 152, 30);
+    font-size: medium;
+}
+
+@media (max-width: 1024px) {
+    .SearchBar input{
+        width: 75%;
+    }
+}
+
+@media (max-width: 520px) {
+    .SearchBar input{
+        width: 100%;
+    }
+}

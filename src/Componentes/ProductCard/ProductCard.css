@@ -1,0 +1,75 @@
+/*APARTADO DEL CONTENEDOR GENERAL*/
+.productCard{
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.productCard:hover{
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+/*APARTADO DE IMAGEN*/
+.productImg{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+/*APARTADO DE INFORMACIÓN*/
+.info{
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*APARTADO DE BOTONES*/
+.buttons{
+    display: flex;
+    justify-content: start;
+    gap: 0.3rem;
+    height: 30px;
+    align-items: stretch;
+    margin-top: 10px;
+}
+
+.talla{
+    width: 15%;
+    background-color: gainsboro;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.talla:hover{
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.toCart{
+    flex: 1;
+    background-color: black;
+    color: white;
+    border-radius: 3px;
+    font-size: small;
+    transition: all 0.5s ease;
+}
+
+.toCart:hover{
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border: 1px black solid;
+    transition: all 0.5s ease;
+}
+
+
+/*APARTADO DE MODIFICACIÓN DE ELEMENTOS ESPECÍFICOS*/
+.row h3{ margin: 0; font-size: medium;}
+.row h5{ margin: 0; font-size: small;}
+.row del{font-size: small;}
+.row span{font-size: large;}
