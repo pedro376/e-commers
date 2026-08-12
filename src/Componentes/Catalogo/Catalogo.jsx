@@ -27,6 +27,10 @@ function Catalogo()
 
             <SearchBar/>
 
+            <div className="titulo">
+                <h1>SELECCIONES</h1>
+            </div>
+
             <div className="Product_Grid">
                 {productosPagina.map((producto) => (
                     <ProductCard

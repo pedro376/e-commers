@@ -1,3 +1,11 @@
+.titulo
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
 .Catalogo_Container{
     width: 100%;
     max-width: 1200px;
@@ -7,7 +15,6 @@
 }
 
 .Product_Grid{
-    margin-top: 25px;
     padding: 10px 10px 10px 10px;
     display: grid;
     grid-template-columns: repeat(
@@ -26,7 +33,6 @@
     gap: 10px;
     margin-top: 25px;
     margin-bottom: 25px;
-    border: 1px solid black;
 }
 
 .active
