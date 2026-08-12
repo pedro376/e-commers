@@ -141,7 +141,7 @@ img{
   gap: 14px;
   margin-bottom: 32px;
 }
-.section-head h2{ font-size: clamp(26px, 7vw, 46px); line-height: 1.05; }
+.section-head h2{ font-family: 'Anton',sans-serif; font-size: clamp(26px, 7vw, 46px); line-height: 1.05; }
 .section-head p{ font-size: 14px; color: var(--ink-soft); max-width: 420px; }
 
 
@@ -282,6 +282,7 @@ img{
   }
 
   .cta-btn{
+    
     padding: 8px 14px;
     font-size: 11px;
   }
