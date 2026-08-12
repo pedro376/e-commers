@@ -4,20 +4,34 @@ import SearchBar from "../SearchBar/SearchBar";
 import "./Catalogo.css";
 import {productos} from "../../data/productos";
 
+const normalizarTexto = (texto) =>
+    texto
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+
 function Catalogo()
 {
+    {/* FILTRAR POR NOMBRE EN EL SEARCHBAR */}
+    const [search, setSearch] = useState("");
+    
+    const productosFiltrados = productos.filter((producto) =>
+        normalizarTexto(producto.nombre).includes(normalizarTexto(search))
+    );
+
+    {/* PAGINACIÓN CON BUTTONS Y FILTRADOS */}
 
     const productosPorPage = 28;
     const [actualPage, setActualPage] = useState(1);
     const indiceInicial = (actualPage - 1) * productosPorPage;
 
-    const productosPagina = productos.slice(
+    const productosPagina = productosFiltrados.slice(
     indiceInicial,
     indiceInicial + productosPorPage
     );
 
     const totalPages = Math.ceil(
-    productos.length / productosPorPage
+    productosFiltrados.length / productosPorPage
     );
 
     const maxPagesVisible = 4;
@@ -40,10 +54,16 @@ function Catalogo()
         (_, index) => startPage + index
     );
 
+    
+
     return(
         <section className="Catalogo_Container">
 
-            <SearchBar/>
+            <SearchBar
+                search = {search}
+                setSearch = {setSearch}
+                setActualPage = {setActualPage}
+            />
 
             <div className="titulo">
                 <h1>SELECCIONES</h1>
