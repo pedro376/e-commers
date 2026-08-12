@@ -20,7 +20,25 @@ function Catalogo()
     productos.length / productosPorPage
     );
 
+    const maxPagesVisible = 4;
 
+    const startPage = Math.max(
+        1,
+        Math.min(
+            actualPage - 2,
+            totalPages - maxPagesVisible + 1
+        )
+    );
+
+    const endPage = Math.min(
+        totalPages,
+        startPage + maxPagesVisible - 1
+    );
+
+    const pages = Array.from(
+        { length: endPage - startPage + 1 },
+        (_, index) => startPage + index
+    );
 
     return(
         <section className="Catalogo_Container">
@@ -42,13 +60,13 @@ function Catalogo()
 
             <div className="pagination">
 
-                {Array.from({ length: totalPages }, (_, index) => (
+                {pages.map((page) => (
                     <button
-                        key={index}
-                        className={actualPage === index + 1 ? "active" : "disable"}
-                        onClick={() => setActualPage(index + 1)}
+                        key={page}
+                        className={actualPage === page ? "active" : "disable"}
+                        onClick={() => setActualPage(page)}
                     >
-                        {index + 1}
+                        {page}
                     </button>
                 ))}
 

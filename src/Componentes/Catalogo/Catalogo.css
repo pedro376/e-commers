@@ -3,7 +3,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .Catalogo_Container{
