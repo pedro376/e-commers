@@ -4,8 +4,6 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 
-
-import './App.css'
 import './css/global.css'
 import './css/inicio.css'
 
@@ -19,9 +17,10 @@ function App() {
   return (
     <>
       <div className='grain'/>
-      <Navbar />
+      <NavBar />
       <Routes>
         <Route path='/' element={<Inicio/>} />
+        <Route path='/selecciones' element={<Catalogo/>} />
       </Routes>
       <Footer/>
     </>
