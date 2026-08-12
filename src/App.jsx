@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
+import { CartProvider } from './context/CartContext.jsx';
+import CartDrawer from './components/CartDrawer.jsx';
 
 import './css/global.css'
 import './css/inicio.css'
@@ -15,15 +17,16 @@ import Inicio from './pages/Inicio'
 function App() {
 
   return (
-    <>
-      <div className='grain'/>
-      <NavBar />
-      <Routes>
-        <Route path='/' element={<Inicio/>} />
-        <Route path='/selecciones' element={<Catalogo/>} />
-      </Routes>
-      <Footer/>
-    </>
+      <CartProvider>
+        <div className='grain'/>
+        <NavBar />
+        <Routes>
+          <Route path='/' element={<Inicio/>} />
+          <Route path='/selecciones' element={<Catalogo/>} />
+        </Routes>
+        <Footer/>        
+        <CartDrawer />
+      </CartProvider>
    )
 }
 

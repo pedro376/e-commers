@@ -1,45 +1,49 @@
+import { useState } from "react";
+import { useCart } from "../../context/CartContext";
 import "./ProductCard.css";
 
+function ProductCard({ producto }) {
+  const { addToCart } = useCart();
+  const [talla, setTalla] = useState("S");
 
-function ProductCard({producto})
-{
-    return(
-        <article className="productCard">
+  function handleAgregar() {
+    addToCart({
+      id: producto.id,
+      nombre: producto.nombre,
+      precio: producto.precio,
+      img: producto.img,
+      talla,
+    });
+  }
 
-            <img className="productImg" src={producto.img} alt="Producto"></img> {/*Imagen que traeremos desde Shopify*/}
+  return (
+    <article className="productCard">
+      <img className="productImg" src={producto.img} alt="Producto" />
 
-            <div className="info">
+      <div className="info">
+        <div className="row">
+          <h3>{producto.nombre}</h3>
+          <span>${producto.precio}</span>
+        </div>
 
-                <div className="row">
+        <div className="row">
+          <h5>Selección</h5>
+          <del>$000</del>
+        </div>
+      </div>
 
-                <h3>{producto.nombre}</h3>
-                <span>${producto.precio}</span>
+      <div className="buttons">
+        <select className="talla" value={talla} onChange={(e) => setTalla(e.target.value)}>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="G">G</option>
+          <option value="XL">XL</option>
+        </select>
 
-            </div> {/*Este div contendrá name y precio en la misma linea*/}
-            
-            <div className="row">
-
-                <h5>Selección</h5>
-                <del>$000</del>
-
-            </div> {/*Este div contendrá club/selección y descuento (si lo hay) en una sola linea*/}
-
-            </div>
-
-            <div className="buttons">
-
-                <select className="talla" id="size"> {/*Cambiar id y options con shopify*/}
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="G">G</option>
-                    <option value="XL">XL</option>
-                </select>
-
-                <button className="toCart">AGREGAR AL CARRITO</button>
-            </div> {/*Buttons de piezas y agregar al carrito*/}
-
-        </article>
-    );
+        <button className="toCart" onClick={handleAgregar}>AGREGAR AL CARRITO</button>
+      </div>
+    </article>
+  );
 }
 
 export default ProductCard;

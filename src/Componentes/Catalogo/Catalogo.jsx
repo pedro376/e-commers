@@ -83,7 +83,7 @@ function Catalogo()
                 {pages.map((page) => (
                     <button
                         key={page}
-                        className={actualPage === page ? "active" : "disable"}
+                        className={actualPage === page ? "actives" : "disable"}
                         onClick={() => setActualPage(page)}
                     >
                         {page}

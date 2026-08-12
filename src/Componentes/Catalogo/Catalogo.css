@@ -1,11 +1,14 @@
 .titulo
 {
+    font-family: 'Anton',sans-serif;
+    font-size: 30px;
     width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 
 .Catalogo_Container{
     width: 100%;
@@ -36,7 +39,7 @@
     margin-bottom: 25px;
 }
 
-.active
+.actives
 {
     width: 50px;
     height: 50px;
@@ -46,7 +49,7 @@
     transition: all 0.3s ease;
 }
 
-.active:hover
+.activesq:hover
 {
     transition: all 0.3s ease;
     transform: scale(1.1);
