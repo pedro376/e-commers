@@ -1,8 +1,9 @@
 import ProductCard from "../ProductCard/ProductCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar/SearchBar";
 import "./Catalogo.css";
-import {productos} from "../../data/productos";
+import { obtenerProductosPorColeccion } from "../../lib/shopify";
+
 
 const normalizarTexto = (texto) =>
     texto
@@ -10,31 +11,63 @@ const normalizarTexto = (texto) =>
         .replace(/[\u0300-\u036f]/g, "")
         .toLowerCase();
 
+
 function Catalogo()
 {
-    {/* FILTRAR POR NOMBRE EN EL SEARCHBAR */}
+    const [productos, setProductos] = useState([]);
+    const [cargando, setCargando] = useState(true);
+
     const [search, setSearch] = useState("");
-    
+
+
+    useEffect(() => {
+        obtenerProductosPorColeccion("seleccion-mexicana")
+            .then(setProductos)
+            .catch((error) => {
+                console.error("Error obteniendo productos:", error);
+            })
+            .finally(() => {
+                setCargando(false);
+            });
+    }, []);
+
+
+    if (cargando) {
+        return (
+            <section className="Catalogo_Container">
+                <p>Cargando productos...</p>
+            </section>
+        );
+    }
+
+
     const productosFiltrados = productos.filter((producto) =>
-        normalizarTexto(producto.nombre).includes(normalizarTexto(search))
+        normalizarTexto(producto.nombre).includes(
+            normalizarTexto(search)
+        )
     );
 
-    {/* PAGINACIÓN CON BUTTONS Y FILTRADOS */}
 
     const productosPorPage = 28;
+
     const [actualPage, setActualPage] = useState(1);
+
     const indiceInicial = (actualPage - 1) * productosPorPage;
 
+
     const productosPagina = productosFiltrados.slice(
-    indiceInicial,
-    indiceInicial + productosPorPage
+        indiceInicial,
+        indiceInicial + productosPorPage
     );
+
 
     const totalPages = Math.ceil(
-    productosFiltrados.length / productosPorPage
+        productosFiltrados.length / productosPorPage
     );
 
+
     const maxPagesVisible = 4;
+
 
     const startPage = Math.max(
         1,
@@ -44,50 +77,64 @@ function Catalogo()
         )
     );
 
+
     const endPage = Math.min(
         totalPages,
         startPage + maxPagesVisible - 1
     );
+
 
     const pages = Array.from(
         { length: endPage - startPage + 1 },
         (_, index) => startPage + index
     );
 
-    
 
     return(
         <section className="Catalogo_Container">
 
             <SearchBar
-                search = {search}
-                setSearch = {setSearch}
-                setActualPage = {setActualPage}
+                search={search}
+                setSearch={setSearch}
+                setActualPage={setActualPage}
             />
+
 
             <div className="titulo">
                 <h1>SELECCIONES</h1>
             </div>
 
+
             <div className="Product_Grid">
+
                 {productosPagina.map((producto) => (
+
                     <ProductCard
                         key={producto.id}
                         producto={producto}
                     />
+
                 ))}
+
             </div>
+
 
             <div className="pagination">
 
                 {pages.map((page) => (
+
                     <button
                         key={page}
-                        className={actualPage === page ? "actives" : "disable"}
+                        className={
+                            actualPage === page
+                                ? "actives"
+                                : "disable"
+                        }
                         onClick={() => setActualPage(page)}
                     >
                         {page}
                     </button>
+
                 ))}
 
             </div>
@@ -95,5 +142,6 @@ function Catalogo()
         </section>
     )
 }
+
 
 export default Catalogo;
