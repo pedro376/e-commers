@@ -4,11 +4,19 @@ import "./ProductCard.css";
 
 function ProductCard({ producto }) {
   const { addToCart } = useCart();
-  const [talla, setTalla] = useState("S");
+  const [talla, setTalla] = useState(producto.tallas[0]?.talla || "");
 
   function handleAgregar() {
+    const varianteElegida = producto.tallas.find((t) => t.talla === talla);
+
+    if (!varianteElegida) {
+      alert("Selecciona una talla disponible");
+      return;
+    }
+
     addToCart({
       id: producto.id,
+      variantId: varianteElegida.variantId,
       nombre: producto.nombre,
       precio: producto.precio,
       img: producto.img,
@@ -34,10 +42,11 @@ function ProductCard({ producto }) {
 
       <div className="buttons">
         <select className="talla" value={talla} onChange={(e) => setTalla(e.target.value)}>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="G">G</option>
-          <option value="XL">XL</option>
+          {producto.tallas.map((t) => (
+            <option key={t.variantId} value={t.talla} disabled={!t.disponible}>
+              {t.talla}
+            </option>
+          ))}
         </select>
 
         <button className="toCart" onClick={handleAgregar}>AGREGAR AL CARRITO</button>

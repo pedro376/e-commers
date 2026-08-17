@@ -7,7 +7,6 @@ const NAV_LINKS = [
   { to: '/selecciones', label: 'Selecciones' },
   { to: '/clubes', label: 'Clubes' },
   { to: '/retro', label: 'Retro' },
-  { to: '/nosotros', label: 'Nosotros' },
 ];
 
 function Navbar() {
@@ -31,6 +30,12 @@ function Navbar() {
           </nav>
 
           <div className="nav-actions">
+            <a href={`https://${import.meta.env.VITE_SHOPIFY_DOMAIN}/account`} className="icon-btn" aria-label="Mi cuenta">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
+              </svg>
+            </a>
             <button className="cart-nav-btn" type="button" aria-label="Abrir carrito" onClick={toggleCart}>
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
@@ -39,7 +44,7 @@ function Navbar() {
               </svg>
               {cartCount > 0 && <span className="cart-nav-count">{cartCount}</span>}
             </button>
-            <button className="cta-btn gold">Comprar</button>
+            
           </div>
         </div>
       </header>

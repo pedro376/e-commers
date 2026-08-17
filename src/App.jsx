@@ -1,33 +1,32 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom';
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import { CartProvider } from './context/CartContext.jsx';
+import Navbar from './components/Navbar.jsx';
+import Footer from './components/Footer.jsx';
 import CartDrawer from './components/CartDrawer.jsx';
-
-import './css/global.css'
-import './css/inicio.css'
-
-import NavBar from './components/Navbar'
-import Catalogo from './Componentes/Catalogo/Catalogo'
-import Footer from './components/Footer'
-import Inicio from './pages/Inicio'
+import Inicio from './pages/Inicio.jsx';
+import Selecciones from './pages/Selecciones.jsx';
+import Clubes from './pages/Clubes.jsx';
+import Retro from './pages/Retro.jsx';
+import './css/global.css';
+import './App.css';
 
 function App() {
 
   return (
-      <CartProvider>
-        <div className='grain'/>
-        <NavBar />
-        <Routes>
-          <Route path='/' element={<Inicio/>} />
-          <Route path='/selecciones' element={<Catalogo/>} />
-        </Routes>
-        <Footer/>        
-        <CartDrawer />
-      </CartProvider>
-   )
+    <CartProvider>
+      <div className='grain'/>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Inicio/>} />
+        <Route path="/selecciones" element={<Selecciones />} />
+        <Route path="/clubes" element={<Clubes />} />
+        <Route path="/retro" element={<Retro />} />
+      </Routes>
+      <Footer/>        
+      <CartDrawer />
+    </CartProvider>
+  )
 }
 
 export default App

@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { crearCheckoutUrl } from '../lib/shopify';
 import '../css/cart.css';
 
 function CartDrawer() {
@@ -6,6 +8,20 @@ function CartDrawer() {
     items, isCartOpen, closeCart, removeFromCart,
     updateQuantity, clearCart, cartCount, cartTotal,
   } = useCart();
+  const [procesando, setProcesando] = useState(false);
+
+  async function handleCheckout() {
+    setProcesando(true);
+    try {
+      const url = await crearCheckoutUrl(items);
+      if (url) window.location.href = url;
+    } catch (error) {
+      console.error(error);
+      alert("Hubo un problema al procesar tu pedido, intenta de nuevo.");
+    } finally {
+      setProcesando(false);
+    }
+  }
 
   return (
     <>
@@ -57,7 +73,9 @@ function CartDrawer() {
               <strong>${cartTotal.toFixed(2)}</strong>
             </div>
             <p className="cart-shipping-note">Envío calculado al finalizar la compra.</p>
-            <button className="cta-btn cart-checkout">Proceder al pago</button>
+            <button className="cta-btn cart-checkout" onClick={handleCheckout} disabled={procesando}>
+              {procesando ? "Procesando..." : "Proceder al pago"}
+            </button>
           </div>
         )}
       </aside>
