@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import logoCrown from '../assets/logo-crown.jpeg';
@@ -11,6 +12,11 @@ const NAV_LINKS = [
 
 function Navbar() {
   const { cartCount, toggleCart } = useCart();
+  const [menuAbierto, setMenuAbierto] = useState(false);
+
+  function cerrarMenu() {
+    setMenuAbierto(false);
+  }
 
   return (
     <>
@@ -36,6 +42,7 @@ function Navbar() {
                 <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
               </svg>
             </a>
+
             <button className="cart-nav-btn" type="button" aria-label="Abrir carrito" onClick={toggleCart}>
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
@@ -44,9 +51,36 @@ function Navbar() {
               </svg>
               {cartCount > 0 && <span className="cart-nav-count">{cartCount}</span>}
             </button>
-            
+
+            <button
+              className="menu-toggle"
+              type="button"
+              aria-label="Abrir menú de catálogo"
+              onClick={() => setMenuAbierto((prev) => !prev)}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                {menuAbierto ? (
+                  <path d="M6 6 18 18M18 6 6 18" />
+                ) : (
+                  <path d="M4 7h16M4 12h16M4 17h16" />
+                )}
+              </svg>
+            </button>
           </div>
         </div>
+
+        <nav className={`mobile-links ${menuAbierto ? 'open' : ''}`}>
+          {NAV_LINKS.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              onClick={cerrarMenu}
+              className={({ isActive }) => (isActive ? 'active' : undefined)}
+            >
+              {label}
+            </NavLink>
+          ))}
+        </nav>
       </header>
 
       <div className="marquee">

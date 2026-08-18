@@ -36,7 +36,6 @@ function ProductCard({ producto }) {
 
         <div className="row">
           <h5>Selección</h5>
-          <del>$000</del>
         </div>
       </div>
 
