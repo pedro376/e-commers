@@ -1,6 +1,6 @@
 import Catalogo from "../Componentes/Catalogo/Catalogo";
 
 function Selecciones() {
-  return <Catalogo titulo="SELECCIONES" />;
+  return <Catalogo categoria="seleccion" titulo="SELECCIONES" />;
 }
 export default Selecciones;

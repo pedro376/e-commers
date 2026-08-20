@@ -1,7 +1,17 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import ProductCard from "../Componentes/ProductCard/ProductCard";
+import { obtenerTodosLosProductos } from "../lib/shopify";
 import "../css/inicio.css";
 
 function Inicio() {
+    const [productosGenerales, setProductosGenerales] = useState([]);
+
+    useEffect(() => {
+        obtenerTodosLosProductos()
+            .then(setProductosGenerales)
+            .catch((error) => console.error("Error obteniendo productos:", error));
+    }, []);    
     return(
 
         <main className="main">
@@ -96,6 +106,20 @@ function Inicio() {
                     </div>
                 </div>
             </section>
+            <section className="destacadosGeneral">
+                <div className="wrap">
+                    <div className="section-head">
+ 
+                    </div>
+
+                    <div className="Product_Grid">
+                        {productosGenerales.slice(0, 8).map((producto) => (
+                            <ProductCard key={producto.id} producto={producto} />
+                        ))}
+                    </div>
+                    <br />
+                </div>
+            </section>            
             <section className="masVendidas"  id="" >
                 <div className="wrap">
                     <div className="section-head" >
