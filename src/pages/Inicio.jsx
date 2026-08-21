@@ -108,10 +108,14 @@ function Inicio() {
             </section>
             <section className="destacadosGeneral">
                 <div className="wrap">
-                    <div className="section-head">
- 
+                    <br /><br /><br />
+                    <div className="mensaje">
+                        <h3>BUSCA Y ELIJE</h3>
+                    
                     </div>
-
+                    <div className="section-head">
+                        <h2>EL QUE MAS TE GUSTE</h2>
+                        </div>
                     <div className="Product_Grid">
                         {productosGenerales.slice(0, 8).map((producto) => (
                             <ProductCard key={producto.id} producto={producto} />
