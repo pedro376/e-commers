@@ -61,6 +61,9 @@
     border: 2px solid var(--gold);
     font-size: small;
     transition: all 0.5s ease;
+    height: auto;
+    padding-bottom: au
+    ;
 }
 
 .toCart:hover{
@@ -76,3 +79,20 @@
 .row h5{ margin: 0; font-size: small;}
 .row del{font-size: small;}
 .row span{font-size: large;}
+
+@media (max-width: 600px){
+  .buttons{
+    height: auto;
+    align-items: stretch;
+  }
+  .row h3{ font-size: 13px; }
+  .row span{ font-size: 15px; }
+  .toCart{
+    font-size: 10px;
+    padding: 6px 2px;
+    line-height: 1.2;
+    white-space: normal;
+  }
+  .talla{ font-size: 12px; width: 26%; }
+  .info{ margin-top: 8px; gap: 4px; }
+}

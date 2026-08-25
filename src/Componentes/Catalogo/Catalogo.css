@@ -23,7 +23,6 @@
     padding: 10px 10px 10px 10px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
-;
     gap: 1.5rem;
 }
 
@@ -69,4 +68,12 @@
 {
     transition: all 0.3s ease;
     transform: scale(1.1);
+}
+
+@media (max-width: 600px){
+  .Product_Grid{
+    grid-template-columns: repeat(2, 1fr);
+    
+    gap: 1.75rem;
+  }
 }
