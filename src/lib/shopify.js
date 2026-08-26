@@ -1,19 +1,19 @@
 import { createStorefrontApiClient } from '@shopify/storefront-api-client';
-function extraerCategoria(tituloOriginal) {
-  const match = tituloOriginal.match(/^-\s*(retro|club)\s*/i);
 
-  if (match) {
-    const categoria = match[1].toLowerCase(); // "retro" o "club"
-    const nombre = tituloOriginal.slice(match[0].length).trim();
-    return { categoria, nombre };
-  }
+function mapearCategoria(tipoProducto) {
+  const texto = (tipoProducto || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
 
-  // Sin prefijo = camiseta normal
-  return { categoria: "seleccion", nombre: tituloOriginal.trim() };
+  if (texto.includes("club")) return "club";
+  if (texto.includes("retro")) return "retro";
+  return "seleccion";
 }
+
 export const shopifyClient = createStorefrontApiClient({
     storeDomain: import.meta.env.VITE_SHOPIFY_DOMAIN,
-    apiVersion: '2024-10',
+    apiVersion: '2025-10',
     publicAccessToken: import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN,
 });
 
@@ -27,6 +27,7 @@ export async function obtenerTodosLosProductos() {
                         id
                         title
                         description
+                        productType
                         featuredImage { url altText }
                         images(first: 10) {
                             edges { node { url altText } }
@@ -47,24 +48,20 @@ export async function obtenerTodosLosProductos() {
 
     if (!data?.products) return [];
 
-return data.products.edges.map(({ node }) => {
-  const { categoria, nombre } = extraerCategoria(node.title);
-
-        return {
-            id: node.id,
-            nombre,
-            categoria,
-            descripcion: node.description,
-            precio: parseFloat(node.priceRange.minVariantPrice.amount),
-            img: node.featuredImage?.url || "",
-            imagenes: node.images.edges.map(({ node }) => ({ url: node.url, alt: node.altText })),
-            tallas: node.variants.edges.map(({ node }) => ({
+    return data.products.edges.map(({ node }) => ({
+        id: node.id,
+        nombre: node.title,
+        categoria: mapearCategoria(node.productType),
+        descripcion: node.description,
+        precio: parseFloat(node.priceRange.minVariantPrice.amount),
+        img: node.featuredImage?.url || "",
+        imagenes: node.images.edges.map(({ node }) => ({ url: node.url, alt: node.altText })),
+        tallas: node.variants.edges.map(({ node }) => ({
             variantId: node.id,
             talla: node.title,
             disponible: node.availableForSale,
-            })),
-        };
-        });
+        })),
+    }));
 }
 
 
@@ -100,6 +97,7 @@ export async function crearCheckoutUrl(items) {
 
   return data?.cartCreate?.cart?.checkoutUrl;
 }
+
 // Trae productos de una colección específica (la dejamos por si la usan después)
 export async function obtenerProductosPorColeccion(handle) {
     const query = `
@@ -112,6 +110,7 @@ export async function obtenerProductosPorColeccion(handle) {
                             id
                             title
                             description
+                            productType
                             featuredImage { url altText }
                             images(first: 10) {
                                 edges { node { url altText } }
@@ -138,6 +137,7 @@ export async function obtenerProductosPorColeccion(handle) {
     return data.collection.products.edges.map(({ node }) => ({
         id: node.id,
         nombre: node.title,
+        categoria: mapearCategoria(node.productType),
         descripcion: node.description,
         precio: parseFloat(node.priceRange.minVariantPrice.amount),
         img: node.featuredImage?.url || "",
