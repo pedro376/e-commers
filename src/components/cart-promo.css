@@ -1,0 +1,38 @@
+.cart-item-promo-tag {
+  display: inline-block;
+  background-color: var(--gold, #c9a227);
+  color: black;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-top: 2px;
+  width: fit-content;
+}
+
+.cart-item-price-original {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.8rem;
+  margin-right: 4px;
+}
+
+.cart-savings-banner {
+  background-color: #eafbea;
+  color: #1a7a1a;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 4px;
+  text-align: center;
+  margin-bottom: 0.6rem;
+}
+
+.cart-subtotal-original {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-right: 6px;
+}
