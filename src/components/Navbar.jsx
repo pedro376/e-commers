@@ -22,7 +22,7 @@ function Navbar() {
   return (
     <>
       <PromoBar
-        mensaje="PROMO 3X2 y 4x3 + ENVÍO GRATIS SOLO HOY"
+        mensaje="PROMO 3X2  + ENVÍO GRATIS SOLO HOY"
         fechaFin="2026-09-19T23:59:59"
       />
       <header>
