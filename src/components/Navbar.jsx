@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import logoCrown from '../assets/logo-crown.jpeg';
+import PromoBar from './PromoBar';
 import '../css/navbar.css';
 
 const NAV_LINKS = [
@@ -20,6 +21,10 @@ function Navbar() {
 
   return (
     <>
+      <PromoBar
+        mensaje="PROMO 3X2 y 4x3 + ENVÍO GRATIS SOLO HOY"
+        fechaFin="2026-09-19T23:59:59"
+      />
       <header>
         <div className="navbar">
           <Link to="/" className="brand">
