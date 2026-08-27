@@ -92,9 +92,8 @@ function Navbar() {
         <div className="marquee-track">
           <span>
             <span className="dot">●</span> ENVÍOS A TODO MÉXICO{' '}
-            <span className="dot">●</span> TEMPORADA 25/26 YA DISPONIBLE{' '}
+            <span className="dot">●</span> TEMPORADA 26/27 YA DISPONIBLE{' '}
             <span className="dot">●</span> CALIDAD FAN &amp; JUGADOR{' '}
-            <span className="dot">●</span> PAGA CONTRA ENTREGA{' '}
             <span className="dot">●</span> ENVÍOS A TODO MÉXICO{' '}
             <span className="dot">●</span> TEMPORADA 25/26 YA DISPONIBLE{' '}
             <span className="dot">●</span> CALIDAD FAN &amp; JUGADOR{' '}
