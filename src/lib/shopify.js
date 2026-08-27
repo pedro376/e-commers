@@ -212,17 +212,18 @@ export async function suscribirCorreo(email) {
     },
   });
 
-  const errores = data?.customerCreate?.customerUserErrors;
-  if (errores?.length > 0) {
-    // Si el correo ya existía, lo tratamos como "éxito silencioso"
-    // para no confundir al usuario con un error.
-    const yaExiste = errores.some((e) =>
-      e.message.toLowerCase().includes("taken")
-    );
-    if (!yaExiste) {
-      throw new Error(errores[0].message);
-    }
+const errores = data?.customerCreate?.customerUserErrors;
+if (errores?.length > 0) {
+  const yaExiste = errores.some((e) =>
+    e.message.toLowerCase().includes("taken")
+  );
+  const necesitaVerificar = errores.some((e) =>
+    e.message.toLowerCase().includes("verify your email")
+  );
+  if (!yaExiste && !necesitaVerificar) {
+    throw new Error(errores[0].message);
   }
+}
 
   return true;
 }
