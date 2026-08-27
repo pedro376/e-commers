@@ -13,7 +13,7 @@ function WelcomeModal() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const yaVisto = localStorage.getItem(CLAVE_LOCALSTORAGE);
+    const yaVisto = sessionStorage.getItem(CLAVE_LOCALSTORAGE);
     if (yaVisto) return;
 
     const timer = setTimeout(() => setVisible(true), RETRASO_MS);
@@ -22,7 +22,7 @@ function WelcomeModal() {
 
   function cerrar() {
     setVisible(false);
-    localStorage.setItem(CLAVE_LOCALSTORAGE, "true");
+    sessionStorage.setItem(CLAVE_LOCALSTORAGE, "true");
   }
 
   async function handleSubmit(e) {
@@ -36,7 +36,7 @@ function WelcomeModal() {
     try {
       await suscribirCorreo(email);
       setEnviado(true);
-      localStorage.setItem(CLAVE_LOCALSTORAGE, "true");
+      sessionStorage.setItem(CLAVE_LOCALSTORAGE, "true");
     } catch (err) {
       console.error(err);
       setError("Hubo un problema, intenta de nuevo.");
