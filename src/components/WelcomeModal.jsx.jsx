@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { suscribirCorreo } from "../lib/shopify";
 import "./WelcomeModal.css";
-
 const CODIGO_DESCUENTO = "BIENVENIDO10";
 const CLAVE_LOCALSTORAGE = "kj_welcome_modal_visto";
 const RETRASO_MS = 4000; // espera 4 segundos antes de mostrarlo

@@ -3,11 +3,13 @@ import { Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext.jsx';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
+import WelcomeModal from './components/WelcomeModal.jsx';
 import CartDrawer from './components/CartDrawer.jsx';
 import Inicio from './pages/Inicio.jsx';
 import Selecciones from './pages/Selecciones.jsx';
 import Clubes from './pages/Clubes.jsx';
 import Retro from './pages/Retro.jsx';
+
 import './css/global.css';
 import './App.css';
 
@@ -25,6 +27,7 @@ function App() {
       </Routes>
       <Footer/>        
       <CartDrawer />
+      <WelcomeModal />
     </CartProvider>
   )
 }
