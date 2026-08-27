@@ -22,9 +22,12 @@ function Navbar() {
   return (
     <>
       <PromoBar
-        mensaje="PROMO 3X2  + ENVÍO GRATIS SOLO HOY"
+        mensaje="PROMO 3X2 POR TIEMPO LIMITADO"
         fechaFin="2026-09-19T23:59:59"
       />
+      <div className="envio-gratis-banner">
+        🚚 Envío gratis en compras desde $2,000
+      </div>
       <header>
         <div className="navbar">
           <Link to="/" className="brand">
@@ -97,7 +100,15 @@ function Navbar() {
             <span className="dot">●</span> ENVÍOS A TODO MÉXICO{' '}
             <span className="dot">●</span> TEMPORADA 25/26 YA DISPONIBLE{' '}
             <span className="dot">●</span> CALIDAD FAN &amp; JUGADOR{' '}
+            <span className="dot">●</span> PAGA CONTRA ENTREGA <span className="dot"></span>
+                        <span className="dot">●</span> ENVÍOS A TODO MÉXICO{' '}
+            <span className="dot">●</span> TEMPORADA 26/27 YA DISPONIBLE{' '}
+            <span className="dot">●</span> CALIDAD FAN &amp; JUGADOR{' '}
+            <span className="dot">●</span> ENVÍOS A TODO MÉXICO{' '}
+            <span className="dot">●</span> TEMPORADA 25/26 YA DISPONIBLE{' '}
+            <span className="dot">●</span> CALIDAD FAN &amp; JUGADOR{' '}
             <span className="dot">●</span> PAGA CONTRA ENTREGA <span className="dot">●</span>
+            
           </span>
         </div>
       </div>
