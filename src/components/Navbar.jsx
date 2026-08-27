@@ -26,7 +26,7 @@ function Navbar() {
         fechaFin="2026-09-19T23:59:59"
       />
       <div className="envio-gratis-banner">
-        🚚 Envío gratis en compras desde $2,000
+        Envío gratis en compras desde $2,000
       </div>
       <header>
         <div className="navbar">
