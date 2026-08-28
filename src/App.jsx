@@ -25,9 +25,9 @@ function App() {
         <Route path="/selecciones" element={<Selecciones />} />
         <Route path="/clubes" element={<Clubes />} />
         <Route path="/retro" element={<Retro />} />
+        <Route path="/producto/:handle" element={<ProductoDetalle />} />
       </Routes>
-      <Footer/>     
-      <Route path="/producto/:handle" element={<ProductoDetalle />} />   
+      <Footer/>
       <CartDrawer />
       <WelcomeModal />
     </CartProvider>

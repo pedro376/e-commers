@@ -1,5 +1,9 @@
 import { createStorefrontApiClient } from '@shopify/storefront-api-client';
 
+function capitalizar(texto) {
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
+
 function mapearCategoria(tipoProducto) {
   const texto = (tipoProducto || "")
     .normalize("NFD")
@@ -9,6 +13,15 @@ function mapearCategoria(tipoProducto) {
   if (texto.includes("club")) return "club";
   if (texto.includes("retro")) return "retro";
   return "seleccion";
+}
+
+// Lee el ajuste del producto desde sus tags: ajuste-suelto, ajuste-normal,
+// ajuste-ajustado. Si no se etiquetó ninguno, se asume "normal" por defecto.
+function extraerAjuste(tags) {
+  if (!tags) return "normal";
+  if (tags.includes("ajuste-suelto")) return "suelto";
+  if (tags.includes("ajuste-ajustado")) return "ajustado";
+  return "normal";
 }
 
 export const shopifyClient = createStorefrontApiClient({
@@ -57,6 +70,7 @@ export async function obtenerTodosLosProductos() {
         categoria: mapearCategoria(node.productType),
         descripcion: node.description,
         enPromo3x2: node.tags?.includes("promo3x2") || false,
+        ajuste: extraerAjuste(node.tags),
         precio: parseFloat(node.priceRange.minVariantPrice.amount),
         img: node.featuredImage?.url || "",
         imagenes: node.images.edges.map(({ node }) => ({ url: node.url, alt: node.altText })),
@@ -125,6 +139,9 @@ export async function obtenerProductoPorHandle(handle) {
  * Crea un carrito "espejo" en Shopify con los items actuales y regresa
  * el total YA con descuentos automáticos aplicados (como el 3x2),
  * más el detalle de cuánto se descontó por cada línea (variante).
+ *
+ * Se usa para reflejar el precio real en el CartDrawer, sin esperar
+ * a que el cliente llegue al checkout.
  */
 export async function sincronizarCarrito(items) {
   const mutation = `
@@ -143,6 +160,7 @@ export async function sincronizarCarrito(items) {
                 merchandise {
                   ... on ProductVariant { id }
                 }
+                attributes { key value }
                 discountAllocations {
                   discountedAmount { amount }
                 }
@@ -158,6 +176,9 @@ export async function sincronizarCarrito(items) {
   const lines = items.map((item) => ({
     merchandiseId: item.variantId,
     quantity: item.cantidad,
+    attributes: item.ajuste
+      ? [{ key: "Ajuste", value: capitalizar(item.ajuste) }]
+      : [],
   }));
 
   const { data } = await shopifyClient.request(mutation, {
@@ -218,6 +239,9 @@ export async function crearCheckoutUrl(items) {
   const lines = items.map((item) => ({
     merchandiseId: item.variantId,
     quantity: item.cantidad,
+    attributes: item.ajuste
+      ? [{ key: "Ajuste", value: capitalizar(item.ajuste) }]
+      : [],
   }));
 
   const { data } = await shopifyClient.request(mutation, {
@@ -243,6 +267,9 @@ export async function suscribirCorreo(email) {
     }
   `;
 
+  // Shopify exige una contraseña para crear el "customer", aunque aquí
+  // no la vamos a usar para iniciar sesión — solo queremos capturar el
+  // correo como lead. Generamos una aleatoria interna.
   const passwordTemporal =
     Math.random().toString(36).slice(-10) + "Aa1!";
 
@@ -279,6 +306,7 @@ export async function obtenerProductosPorColeccion(handle) {
                     edges {
                         node {
                             id
+                            handle
                             title
                             description
                             productType
@@ -308,10 +336,12 @@ export async function obtenerProductosPorColeccion(handle) {
 
     return data.collection.products.edges.map(({ node }) => ({
         id: node.id,
+        handle: node.handle,
         nombre: node.title,
         categoria: mapearCategoria(node.productType),
         descripcion: node.description,
         enPromo3x2: node.tags?.includes("promo3x2") || false,
+        ajuste: extraerAjuste(node.tags),
         precio: parseFloat(node.priceRange.minVariantPrice.amount),
         img: node.featuredImage?.url || "",
         imagenes: node.images.edges.map(({ node }) => ({ url: node.url, alt: node.altText })),
