@@ -59,7 +59,7 @@ function WelcomeModal() {
             <>
               <h2 className="display">ESPERA, NO TE VAYAS SIN TU</h2>
               <p>
-                 10% OFF en tu primera compra ❗
+                 10% OFF en tu primera compra 
                 <br />
                 <small>*No válido en promoción 3x2*</small>
               </p>
