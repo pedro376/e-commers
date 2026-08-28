@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useCart } from "../../context/CartContext";
+import GuiaTallas from "../GuiaTallas/GuiaTallas";
 import "./ProductCard.css";
 
 function ProductCard({ producto }) {
@@ -20,6 +21,7 @@ function ProductCard({ producto }) {
       nombre: producto.nombre,
       precio: producto.precio,
       img: producto.img,
+      ajuste: producto.ajuste,
       talla,
     });
   }
@@ -50,6 +52,8 @@ function ProductCard({ producto }) {
 
         <button className="toCart" onClick={handleAgregar}>AGREGAR AL CARRITO</button>
       </div>
+
+      <GuiaTallas ajuste={producto.ajuste} />
     </article>
   );
 }
