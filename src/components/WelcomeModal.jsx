@@ -13,16 +13,12 @@ function WelcomeModal() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const yaVisto = sessionStorage.getItem(CLAVE_LOCALSTORAGE);
-    if (yaVisto) return;
-
     const timer = setTimeout(() => setVisible(true), RETRASO_MS);
     return () => clearTimeout(timer);
   }, []);
 
   function cerrar() {
     setVisible(false);
-    sessionStorage.setItem(CLAVE_LOCALSTORAGE, "true");
   }
 
   async function handleSubmit(e) {
@@ -36,7 +32,6 @@ function WelcomeModal() {
     try {
       await suscribirCorreo(email);
       setEnviado(true);
-      sessionStorage.setItem(CLAVE_LOCALSTORAGE, "true");
     } catch (err) {
       console.error(err);
       setError("Hubo un problema, intenta de nuevo.");
@@ -64,7 +59,7 @@ function WelcomeModal() {
             <>
               <h2 className="display">ESPERA, NO TE VAYAS SIN TU</h2>
               <p>
-                ⚡ 10% OFF en tu primera compra ❗
+                 10% OFF en tu primera compra ❗
                 <br />
                 <small>*No válido en promoción 3x2*</small>
               </p>
@@ -79,7 +74,7 @@ function WelcomeModal() {
                 />
                 {error && <p className="welcome-error">{error}</p>}
                 <button className="cta-btn" type="submit" disabled={enviando}>
-                  {enviando ? "Enviando..." : "QUIERO MI DESCUENTO 🔥"}
+                  {enviando ? "Enviando..." : "QUIERO MI DESCUENTO "}
                 </button>
               </form>
             </>
