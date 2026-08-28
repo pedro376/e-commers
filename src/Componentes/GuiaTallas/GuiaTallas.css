@@ -1,0 +1,47 @@
+.guia-tallas {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+}
+
+.guia-tallas-track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: #ddd;
+  border-radius: 2px;
+  margin: 10px 0 6px;
+}
+
+.guia-tallas-punto {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background: var(--ink, #111);
+  border: 2px solid var(--gold, #c9a227);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: left 0.2s ease;
+}
+
+.guia-tallas-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.guia-tallas-labels .activo {
+  color: var(--ink, #111);
+  font-weight: 700;
+}
+
+.guia-tallas-descripcion {
+  margin: 4px 0 0;
+  font-size: 0.7rem;
+  color: #666;
+  text-align: right;
+}
