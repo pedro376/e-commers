@@ -1,21 +1,19 @@
 import { createStorefrontApiClient } from '@shopify/storefront-api-client';
 
-function extraerCategoria(tituloOriginal) {
-  const match = tituloOriginal.match(/^-\s*(retro|club)\s*/i);
+function mapearCategoria(tipoProducto) {
+  const texto = (tipoProducto || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
 
-  if (match) {
-    const categoria = match[1].toLowerCase(); // "retro" o "club"
-    const nombre = tituloOriginal.slice(match[0].length).trim();
-    return { categoria, nombre };
-  }
-
-  // Sin prefijo = camiseta normal
-  return { categoria: "seleccion", nombre: tituloOriginal.trim() };
+  if (texto.includes("club")) return "club";
+  if (texto.includes("retro")) return "retro";
+  return "seleccion";
 }
 
 export const shopifyClient = createStorefrontApiClient({
     storeDomain: import.meta.env.VITE_SHOPIFY_DOMAIN,
-    apiVersion: '2024-10',
+    apiVersion: '2025-10',
     publicAccessToken: import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN,
 });
 
@@ -29,6 +27,7 @@ export async function obtenerTodosLosProductos() {
                         id
                         title
                         description
+                        productType
                         tags
                         featuredImage { url altText }
                         images(first: 10) {
@@ -50,34 +49,27 @@ export async function obtenerTodosLosProductos() {
 
     if (!data?.products) return [];
 
-    return data.products.edges.map(({ node }) => {
-        const { categoria, nombre } = extraerCategoria(node.title);
-
-        return {
-            id: node.id,
-            nombre,
-            categoria,
-            descripcion: node.description,
-            enPromo3x2: node.tags?.includes("promo3x2") || false,
-            precio: parseFloat(node.priceRange.minVariantPrice.amount),
-            img: node.featuredImage?.url || "",
-            imagenes: node.images.edges.map(({ node }) => ({ url: node.url, alt: node.altText })),
-            tallas: node.variants.edges.map(({ node }) => ({
-                variantId: node.id,
-                talla: node.title,
-                disponible: node.availableForSale,
-            })),
-        };
-    });
+    return data.products.edges.map(({ node }) => ({
+        id: node.id,
+        nombre: node.title,
+        categoria: mapearCategoria(node.productType),
+        descripcion: node.description,
+        enPromo3x2: node.tags?.includes("promo3x2") || false,
+        precio: parseFloat(node.priceRange.minVariantPrice.amount),
+        img: node.featuredImage?.url || "",
+        imagenes: node.images.edges.map(({ node }) => ({ url: node.url, alt: node.altText })),
+        tallas: node.variants.edges.map(({ node }) => ({
+            variantId: node.id,
+            talla: node.title,
+            disponible: node.availableForSale,
+        })),
+    }));
 }
 
 /**
  * Crea un carrito "espejo" en Shopify con los items actuales y regresa
  * el total YA con descuentos automáticos aplicados (como el 3x2),
  * más el detalle de cuánto se descontó por cada línea (variante).
- *
- * Se usa para reflejar el precio real en el CartDrawer, sin esperar
- * a que el cliente llegue al checkout.
  */
 export async function sincronizarCarrito(items) {
   const mutation = `
@@ -196,9 +188,6 @@ export async function suscribirCorreo(email) {
     }
   `;
 
-  // Shopify exige una contraseña para crear el "customer", aunque aquí
-  // no la vamos a usar para iniciar sesión — solo queremos capturar el
-  // correo como lead. Generamos una aleatoria interna.
   const passwordTemporal =
     Math.random().toString(36).slice(-10) + "Aa1!";
 
@@ -212,18 +201,15 @@ export async function suscribirCorreo(email) {
     },
   });
 
-const errores = data?.customerCreate?.customerUserErrors;
-if (errores?.length > 0) {
-  const yaExiste = errores.some((e) =>
-    e.message.toLowerCase().includes("taken")
-  );
-  const necesitaVerificar = errores.some((e) =>
-    e.message.toLowerCase().includes("verify your email")
-  );
-  if (!yaExiste && !necesitaVerificar) {
-    throw new Error(errores[0].message);
+  const errores = data?.customerCreate?.customerUserErrors;
+  if (errores?.length > 0) {
+    const mensaje = errores[0].message.toLowerCase();
+    const yaExiste = mensaje.includes("taken");
+    const necesitaVerificar = mensaje.includes("verify your email");
+    if (!yaExiste && !necesitaVerificar) {
+      throw new Error(errores[0].message);
+    }
   }
-}
 
   return true;
 }
@@ -240,6 +226,7 @@ export async function obtenerProductosPorColeccion(handle) {
                             id
                             title
                             description
+                            productType
                             tags
                             featuredImage { url altText }
                             images(first: 10) {
@@ -267,6 +254,7 @@ export async function obtenerProductosPorColeccion(handle) {
     return data.collection.products.edges.map(({ node }) => ({
         id: node.id,
         nombre: node.title,
+        categoria: mapearCategoria(node.productType),
         descripcion: node.description,
         enPromo3x2: node.tags?.includes("promo3x2") || false,
         precio: parseFloat(node.priceRange.minVariantPrice.amount),
