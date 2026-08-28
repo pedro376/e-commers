@@ -5,6 +5,7 @@ import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import WelcomeModal from './components/WelcomeModal.jsx';
 import CartDrawer from './components/CartDrawer.jsx';
+import ProductoDetalle from './pages/ProductoDetalle.jsx';
 import Inicio from './pages/Inicio.jsx';
 import Selecciones from './pages/Selecciones.jsx';
 import Clubes from './pages/Clubes.jsx';
@@ -25,7 +26,8 @@ function App() {
         <Route path="/clubes" element={<Clubes />} />
         <Route path="/retro" element={<Retro />} />
       </Routes>
-      <Footer/>        
+      <Footer/>     
+      <Route path="/producto/:handle" element={<ProductoDetalle />} />   
       <CartDrawer />
       <WelcomeModal />
     </CartProvider>

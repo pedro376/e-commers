@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
-import GuiaTallas from "../GuiaTallas/GuiaTallas";
 import "./ProductCard.css";
 
 function ProductCard({ producto }) {
@@ -21,25 +21,26 @@ function ProductCard({ producto }) {
       nombre: producto.nombre,
       precio: producto.precio,
       img: producto.img,
-      ajuste: producto.ajuste,
       talla,
     });
   }
 
   return (
     <article className="productCard">
-      <img className="productImg" src={producto.img} alt="Producto" />
+      <Link to={`/producto/${producto.handle}`} className="product-card-link">
+        <img className="productImg" src={producto.img} alt="Producto" />
 
-      <div className="info">
-        <div className="row">
-          <h3>{producto.nombre}</h3>
-          <span>${producto.precio}</span>
-        </div>
+        <div className="info">
+          <div className="row">
+            <h3>{producto.nombre}</h3>
+            <span>${producto.precio}</span>
+          </div>
 
-        <div className="row">
-          <h5>Selección</h5>
+          <div className="row">
+            <h5>Selección</h5>
+          </div>
         </div>
-      </div>
+      </Link>
 
       <div className="buttons">
         <select className="talla" value={talla} onChange={(e) => setTalla(e.target.value)}>
@@ -52,8 +53,6 @@ function ProductCard({ producto }) {
 
         <button className="toCart" onClick={handleAgregar}>AGREGAR AL CARRITO</button>
       </div>
-
-      <GuiaTallas ajuste={producto.ajuste} />
     </article>
   );
 }

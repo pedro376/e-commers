@@ -65,7 +65,13 @@
     padding-bottom: au
     ;
 }
-
+/* Agregar esto al final de tu ProductCard.css existente */
+.product-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+}
 .toCart:hover{
     background-color: var(--gold);
     color: black;
