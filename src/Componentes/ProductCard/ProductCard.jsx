@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import GuiaTallas from "../GuiaTallas/GuiaTallas";
 import "./ProductCard.css";
 
 function ProductCard({ producto }) {
   const { addToCart } = useCart();
   const [talla, setTalla] = useState(producto.tallas[0]?.talla || "");
+  const [ajusteElegido, setAjusteElegido] = useState(producto.ajuste || "normal");
 
   function handleAgregar() {
     const varianteElegida = producto.tallas.find((t) => t.talla === talla);
@@ -21,6 +23,7 @@ function ProductCard({ producto }) {
       nombre: producto.nombre,
       precio: producto.precio,
       img: producto.img,
+      ajuste: ajusteElegido,
       talla,
     });
   }
@@ -53,6 +56,8 @@ function ProductCard({ producto }) {
 
         <button className="toCart" onClick={handleAgregar}>AGREGAR AL CARRITO</button>
       </div>
+
+      <GuiaTallas valor={ajusteElegido} onChange={setAjusteElegido} />
     </article>
   );
 }

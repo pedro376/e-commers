@@ -12,6 +12,7 @@ function ProductoDetalle() {
   const [producto, setProducto] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [talla, setTalla] = useState("");
+  const [ajusteElegido, setAjusteElegido] = useState("normal");
   const [imagenActiva, setImagenActiva] = useState(0);
 
   useEffect(() => {
@@ -20,6 +21,7 @@ function ProductoDetalle() {
       .then((data) => {
         setProducto(data);
         setTalla(data?.tallas?.[0]?.talla || "");
+        setAjusteElegido(data?.ajuste || "normal");
       })
       .catch((error) => console.error("Error obteniendo producto:", error))
       .finally(() => setCargando(false));
@@ -38,7 +40,7 @@ function ProductoDetalle() {
       nombre: producto.nombre,
       precio: producto.precio,
       img: producto.img,
-      ajuste: producto.ajuste,
+      ajuste: ajusteElegido,
       talla,
     });
   }
@@ -117,7 +119,7 @@ function ProductoDetalle() {
             AGREGAR AL CARRITO
           </button>
 
-          <GuiaTallas ajuste={producto.ajuste} />
+          <GuiaTallas valor={ajusteElegido} onChange={setAjusteElegido} />
         </div>
       </div>
     </section>
