@@ -73,8 +73,9 @@
 @media (max-width: 600px){
   .Product_Grid{
     grid-template-columns: repeat(2, 1fr);
-    grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+    padding: 0px 0px 0px 0px;
+    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
 
-    gap: 1.75rem;
+    gap: 1.55rem;
   }
 }
