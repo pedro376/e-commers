@@ -1,7 +1,10 @@
 import { createStorefrontApiClient } from '@shopify/storefront-api-client';
 
-function capitalizar(texto) {
-  return texto.charAt(0).toUpperCase() + texto.slice(1);
+function formatearAjuste(valor) {
+  return valor
+    .split('-')
+    .map((palabra) => palabra.charAt(0).toUpperCase() + palabra.slice(1))
+    .join(' ');
 }
 
 function mapearCategoria(tipoProducto) {
@@ -16,10 +19,12 @@ function mapearCategoria(tipoProducto) {
 }
 
 // Lee el ajuste del producto desde sus tags: ajuste-suelto, ajuste-normal,
-// ajuste-ajustado. Si no se etiquetó ninguno, se asume "normal" por defecto.
+// ajuste-ajustado, ajuste-muy-ajustado. Si no se etiquetó ninguno, se
+// asume "normal" por defecto.
 function extraerAjuste(tags) {
   if (!tags) return "normal";
   if (tags.includes("ajuste-suelto")) return "suelto";
+  if (tags.includes("ajuste-muy-ajustado")) return "muy-ajustado";
   if (tags.includes("ajuste-ajustado")) return "ajustado";
   return "normal";
 }
@@ -177,7 +182,7 @@ export async function sincronizarCarrito(items) {
     merchandiseId: item.variantId,
     quantity: item.cantidad,
     attributes: item.ajuste
-      ? [{ key: "Ajuste", value: capitalizar(item.ajuste) }]
+      ? [{ key: "Ajuste", value: formatearAjuste(item.ajuste) }]
       : [],
   }));
 
@@ -240,7 +245,7 @@ export async function crearCheckoutUrl(items) {
     merchandiseId: item.variantId,
     quantity: item.cantidad,
     attributes: item.ajuste
-      ? [{ key: "Ajuste", value: capitalizar(item.ajuste) }]
+      ? [{ key: "Ajuste", value: formatearAjuste(item.ajuste) }]
       : [],
   }));
 

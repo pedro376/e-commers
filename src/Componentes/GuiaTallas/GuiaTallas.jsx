@@ -4,7 +4,8 @@ import "./GuiaTallas.css";
 const NIVELES = [
   { valor: "suelto", label: "Suelto", nota: "Pedir 1-2 tallas menos para ajuste normal" },
   { valor: "normal", label: "Normal", nota: "Pedir talla normal" },
-  { valor: "ajustado", label: "Ajustado", nota: "Pedir 1-2 tallas más para ajuste normal" },
+  { valor: "ajustado", label: "Ajustado", nota: "Pedir 1 talla más para ajuste normal" },
+  { valor: "muy-ajustado", label: "Muy ajustado", nota: "Pedir 2 tallas más para ajuste normal" },
 ];
 
 /**

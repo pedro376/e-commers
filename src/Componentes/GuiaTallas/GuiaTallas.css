@@ -2,6 +2,7 @@
   margin-top: 8px;
   padding-top: 8px;
   border-top: 1px solid #eee;
+  min-width: 0;
 }
 
 .guia-tallas-titulo {
@@ -50,18 +51,29 @@
 .guia-tallas-labels {
   display: flex;
   justify-content: space-between;
+  gap: 2px;
+  min-width: 0;
 }
 
 .guia-tallas-labels button {
   background: none;
   border: none;
-  padding: 2px 4px;
-  font-size: 0.65rem;
+  padding: 2px 1px;
+  font-size: 0.58rem;
   color: #888;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.01em;
   cursor: pointer;
+  white-space: normal;
+  word-break: break-word;
+  text-align: center;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.15;
 }
+
+.guia-tallas-labels button:first-child { text-align: left; }
+.guia-tallas-labels button:last-child { text-align: right; }
 
 .guia-tallas-labels button.activo {
   color: var(--ink, #111);
@@ -70,7 +82,13 @@
 
 .guia-tallas-descripcion {
   margin: 4px 0 0;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: #666;
   text-align: right;
+}
+
+@media (max-width: 600px) {
+  .guia-tallas-labels button {
+    font-size: 0.52rem;
+  }
 }
