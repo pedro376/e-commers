@@ -117,7 +117,7 @@ function Inicio() {
                         <h2>EL QUE MAS TE GUSTE</h2>
                         </div>
                     <div className="Product_Grid">
-                        {productosGenerales.slice(0, 8).map((producto) => (
+                        {productosGenerales.map((producto) => (
                             <ProductCard key={producto.id} producto={producto} />
                         ))}
                     </div>
